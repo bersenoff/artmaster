@@ -1,0 +1,12 @@
+.call-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 0;
+}
+.call-btn .ant-btn {
+  border-radius: 100%;
+  font-size: 20px;
+  height: 50px;
+  padding: 0 20px;
+}
