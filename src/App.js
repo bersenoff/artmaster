@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import Call from './Components/Call';
 import Promo from './Components/Promo';
+import Order from './Components/Order';
+import Footer from './Components/Footer';
 import 'antd/dist/antd.css';
 import './app.css';
 
@@ -10,9 +12,8 @@ class App extends PureComponent {
       <React.Fragment>
         <Call />
         <Promo />
-        <div className='wrapper' style={{marginTop: '20px'}}>
-          <div className='step-title'>1. Выберите вид стилизованного портрета</div>
-        </div>
+        <Order />
+        <Footer />
       </React.Fragment>
     );
   }

@@ -1,0 +1,131 @@
+.step-section {
+  padding-top: 20px;
+}
+.step-title {
+  border-top: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+  text-transform: uppercase;
+  font-size: 25px;
+  font-weight: 600;
+  color: #333357;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+.views-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.view-block {
+  flex: 1 1 25%;
+  margin: 0 10px;
+}
+.view-img {
+  border: 10px solid #fff;
+  box-shadow: 0 0 20px #555;
+  outline: 1px solid #999;
+  height: 250px;
+  position: relative;
+  top: 0;
+  transition: 0.3s all;
+}
+.view-img:hover {
+  border-image: url('/images/border.png') 150;
+  cursor: pointer;
+  top: -10px;
+}
+.view-img-active {
+  border-image: url('/images/border.png') 150;
+  top: -10px;
+}
+.view-img img {
+  height: 100%;
+  width: 100%;
+}
+.view-title {
+  margin-top: 10px;
+  text-align: center;
+  text-shadow: 0 0 1px #fff;
+}
+.ant-tabs-nav-container {
+  font-size: 18px !important;
+}
+.sizes-left-column {
+  border-right: 1px solid #ccc;
+  float: left;
+  position: relative;
+  width: calc(50% - 10px);
+}
+.sizes-right-column {
+  float: right;
+  width: calc(50% - 10px);
+}
+.size-demonstration {
+  height: 360px;
+}
+.size-demonstration img {
+  height: 100%;
+}
+.demonstration-portret {
+  border: 7.5px solid #fff;
+  border-image: url('/images/border.png') 150;
+  box-shadow: 0 0 7.5px #555;
+  outline: 1px solid #999;
+  display: inline-block;
+  margin-left: 10px;
+  transition: 0.3s all;
+}
+.demonstration-portret img {
+  height: 100%;
+  width: 100%;
+}
+.sizes-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.size-block {
+  border: 7.5px solid #fff;
+  box-shadow: 0 0 7.5px #999;
+  outline: 1px solid #999;
+  line-height: 85px;
+  font-weight: bold;
+  height: 100px;
+  width: calc(25% - 10px);
+  margin: 5px;
+  text-align: center;
+  text-shadow: 0 0 1px #fff;
+}
+.size-block:hover {
+  border-image: url('/images/border.png') 150;
+  cursor: pointer;
+}
+.size-block-active {
+  border-image: url('/images/border.png') 150;
+}
+.cost {
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+  text-shadow: 0 0 1px #fff;
+}
+.feedback-field {
+  margin: 15px auto 0 auto !important;
+  text-align: left;
+  width: 75%;
+}
+.feedback-field:first-child {
+  margin-top: 0;
+}
+.ant-form-item-label label {
+  font-size: 18px !important;
+}
+.ant-input {
+  font-size: 18px !important;
+  height: 50px !important;
+}
