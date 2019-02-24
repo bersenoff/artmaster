@@ -10,7 +10,7 @@ class App extends PureComponent {
   render() {
     return (
       <React.Fragment>
-        <Call />
+        {/* <Call /> */}
         <Promo />
         <Order />
         <Footer />

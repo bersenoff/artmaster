@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
-import { Button, Form, Input, Tabs, Icon, Slider, InputNumber, Row, Col } from 'antd';
+import { Button, Form, Input, Tabs, Icon, Slider, message } from 'antd';
+import axios from 'axios';
 import './index.css';
 
 const Tab = Tabs.TabPane;
@@ -25,10 +26,14 @@ export default class Order extends PureComponent {
         }
       }, // данные
       activeView: 1, // активный вид
+      activeViewName: 'Digital Art',
       activeTab: '1', // активный Tab
       activeSize: 1, // выбранный размер
       height: 40, // высоты демонстрационного портрета
-      width: 30 // ширина демонстрационного портрета
+      width: 30, // ширина демонстрационного портрета
+      name: '',
+      phone: '',
+      sending: false
     }
   }
 
@@ -40,9 +45,10 @@ export default class Order extends PureComponent {
     });
   }
 
-  handleChangeView = (view) => {
+  handleChangeView = (view, name) => {
     this.setState({
-      activeView: view
+      activeView: view,
+      activeViewName: name
     });
   }
 
@@ -61,6 +67,62 @@ export default class Order extends PureComponent {
     }
   }
 
+  handleInputChange = (e, name) => {
+    this.setState({
+      [name]: e.target.value
+    });
+  }
+
+  send = () => {
+    const {
+      activeViewName,
+      width,
+      height,
+      name,
+      phone
+    } = this.state;
+
+    if (!phone.length) {
+      message.error('Введите номер телефона');
+      return;
+    }
+
+    if (!name.length) {
+      message.error('Введите имя');
+      return;
+    }
+
+    this.setState({
+      sending: true
+    });
+
+    axios({
+      method: 'post',
+      url: 'http://artmaster38.ru/send',
+      data: {
+        type: activeViewName,
+        width,
+        height,
+        name,
+        phone
+      }
+    }).then((res) => {
+      if (res.data.result) {
+        message.success(res.data.data);
+        this.setState({
+          name: '',
+          phone: '',
+          sending: false
+        }); 
+      } else {
+        message.error(res.data.error_text);
+        this.setState({
+          sending: false
+        });
+      }
+    });
+  }
+
   render() {
     const {
         data,
@@ -68,35 +130,38 @@ export default class Order extends PureComponent {
         activeTab,
         activeSize,
         height,
-        width 
+        width,
+        name,
+        phone,
+        sending
     } = this.state;
 
     return (
       <div className='wrapper'>
-        <div className='step-section'>
+        <div className='step-section' id="order-form">
           <div className='step-title'>1. Выберите вид стилизованного портрета</div>
           <div className='step-body'>
             <div className='views-section'>
               <div className='view-block'>
-                <div className={(activeView === 1 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(1)}>
+                <div className={(activeView === 1 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(1, 'Digital Art')}>
                   <img src='/images/digital_art.jpg' alt='' />
                 </div>
                 <div className='view-title'>{(activeView === 1) && <Icon type="check-circle" theme="filled" />} Digital Art</div>
               </div>
               <div className='view-block'>
-                <div className={(activeView === 2 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(2)}>
+                <div className={(activeView === 2 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(2, 'Pop Art')}>
                   <img src='/images/pop_art.jpg' alt='' />
                 </div>
                 <div className='view-title'>{(activeView === 2) && <Icon type="check-circle" theme="filled" />} Pop Art</div>
               </div>
               <div className='view-block'>
-                <div className={(activeView === 3 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(3)}>
+                <div className={(activeView === 3 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(3, 'Dream Art')}>
                   <img src='/images/dream_art.jpg' alt='' />
                 </div>
                 <div className='view-title'>{(activeView === 3) && <Icon type="check-circle" theme="filled" />} Dream Art</div>
               </div>
               <div className='view-block'>
-                <div className={(activeView === 4 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(4)}>
+                <div className={(activeView === 4 ? 'view-img view-img-active' : 'view-img')} onClick={() => this.handleChangeView(4, 'Ретушь')}>
                   <img src='/images/retouch.jpg' alt='' />
                 </div>
                 <div className='view-title'>{(activeView === 4) && <Icon type="check-circle" theme="filled" />} Ретушь</div>
@@ -168,14 +233,14 @@ export default class Order extends PureComponent {
           <div className='step-body' style={{textAlign: 'center'}}>
             <Form>
               <Form.Item label='Номер телефона' className='feedback-field'>
-                <Input />
+                <Input onChange={(e) => this.handleInputChange(e, 'phone')} value={phone} />
               </Form.Item>
               <Form.Item label='Имя' className='feedback-field'>
-                <Input />
+                <Input onChange={(e) => this.handleInputChange(e, 'name')} value={name} />
               </Form.Item>
             </Form>
             <div style={{marginTop: '20px'}}>
-              <Button type='primary' size='large' style={{height: '50px'}}><Icon type="check-circle" theme="filled" /> Отправить заявку</Button>
+              <Button disabled={sending} type='primary' onClick={this.send} size='large' style={{height: '50px'}}><Icon type="check-circle" theme="filled" /> {(sending) ? 'Отправка...' : 'Отправить заявку'}</Button>
             </div>
           </div>
         </div>

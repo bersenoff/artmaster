@@ -16,7 +16,7 @@ export default class Promo extends PureComponent {
             <div className='company'>Студия портретов <br /> «Арт Мастер»</div>
             <div style={{marginTop: '30px'}}>Оригинальный подарок!</div>
             <div style={{marginTop: '30px'}}>
-              <Button type='primary' size='large' style={{height: '50px'}}><Icon type="check-circle" theme="filled" /> Отправить заявку</Button>
+              <a href='#order-form'><Button type='primary' size='large' style={{height: '50px'}}><Icon type="check-circle" theme="filled" /> Отправить заявку</Button></a>
             </div>
           </div>
           <div className='logo'><img src='/images/logo.jpg' alt='' /></div>
